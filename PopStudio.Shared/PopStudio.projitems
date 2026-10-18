@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Particles\RawXml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Plugin\EncodeHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\LuaScript\Script.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\LuaScript\LuaApiCatalog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Constant\Language.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Particles\Particles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Particles\ParticlesEmitter.cs" />
