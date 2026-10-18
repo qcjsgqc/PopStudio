@@ -2,6 +2,7 @@
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using PopStudio.Avalonia.Drop;
 using PopStudio.Image.Convert;
 using PopStudio.Language.Languages;
 using PopStudio.Platform;
@@ -19,12 +20,13 @@ namespace PopStudio.Avalonia.Pages
         {
             InitializeComponent();
             LoadControl();
-            FilePathDrop.EnableMulti(textbox_input, OnFilesDropped);
+            DropAccept.AttachPathMulti(textbox_input, OnFilesDropped);
             // 整个页面也能接收拖入：拖一张图进来就直接问要不要转换
-            FilePathDrop.EnableMulti(this, OnFilesDropped);
-            // 输出框保持单路径拖入；失败清单只是用来吞掉拖放事件，
+            DropAccept.AttachPathMulti(this, OnFilesDropped);
+            // 输出框保持单路径拖入；失败清单只吞掉拖放事件，
             // 否则拖到这两个框上会冒泡到页面，误触发转换提示
-            FilePathDrop.Enable(textbox_outdir, textbox_failures);
+            DropAccept.AttachPathDrop(textbox_outdir, path => textbox_outdir.Text = path);
+            DropAccept.AttachDropSink(textbox_failures);
             // 状态文本只在初始化时设一次，免得切语言把正在跑的进度或结果冲掉
             label_statue.Text = MAUIStr.Obj.Share_RunStatue;
             LoadFont();

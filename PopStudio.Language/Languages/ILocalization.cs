@@ -383,6 +383,8 @@
         public string Reanim_OutFormat { get; }
         public string Reanim_PredictTweens { get; }
         public string Reanim_PredictTweensHint { get; }
+        public string Reanim_CompiledMismatch_Title { get; }
+        public string Reanim_CompiledMismatch_Text { get; }
 
         //Particles
         public string Particles_Title { get; }
@@ -448,9 +450,15 @@
         //Share
         public string Share_FileNotFound { get; }
         public string Share_FolderNotFound { get; }
+        public string Share_InvalidPath { get; }
+        public string Share_ExtensionMismatch { get; }
+        public string Share_DropNeedFile { get; }
+        public string Share_DropNeedFolder { get; }
+        public string Share_DropRejected { get; }
         public string Share_Finish { get; }
         public string Share_Finish_NoTime { get; }
         public string Share_Wrong { get; }
+        public string Share_ClickOpenFolder { get; }
         public string Share_ChooseMode { get; }
         public string Share_Choose { get; }
         public string Share_DropPathHint { get; }

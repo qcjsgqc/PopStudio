@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using PopStudio.Avalonia.Drop;
 using PopStudio.Language.Languages;
 using PopStudio.LuaScript;
 using PopStudio.Platform;
@@ -77,6 +78,7 @@ namespace PopStudio.Avalonia.Pages
             richtextbox1 = this.Get<TextBox>("richtextbox1");
             richtextbox2 = this.Get<TextBox>("richtextbox2");
             editor_host = this.Get<Panel>("editor_host");
+            DropAccept.AttachFileContentDrop(richtextbox1, text => richtextbox1.Text = text, ".lua", ".txt");
         }
 
         void LoadFont()

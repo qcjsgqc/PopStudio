@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using PopStudio.Avalonia.Drop;
 using PopStudio.Language.Languages;
 using System.Diagnostics;
 using PopStudio.Platform;
@@ -14,7 +15,6 @@ namespace PopStudio.Avalonia.Pages
         {
             InitializeComponent();
             LoadControl();
-            FilePathDrop.Enable(textbox1, textbox2, textbox3);
             LoadFont();
             CB_Mode.Items.Add("RESOURCES.XML(Rsb)");
             CB_Mode.Items.Add("resources.xml(Old)");
@@ -79,6 +79,23 @@ namespace PopStudio.Avalonia.Pages
             CB_MaxHeight = this.Get<ComboBox>("CB_MaxHeight");
             CB_MaxWidth = this.Get<ComboBox>("CB_MaxWidth");
             splice_size = this.Get<StackPanel>("splice_size");
+            DropAccept.AttachPathBox(textbox1, path => textbox1.Text = path, GetInputRule);
+            DropAccept.AttachPathBox(textbox2, path => textbox2.Text = path, GetOutputRule);
+            DropAccept.AttachPathBox(textbox3, path => textbox3.Text = path, () => PathRule.ExistingFile(".xml", ".json", ".txt"));
+        }
+
+        PathRule GetInputRule()
+        {
+            return TB_Mode.IsChecked == true
+                ? PathRule.ExistingFolder()
+                : PathRule.ExistingFile(".png");
+        }
+
+        PathRule GetOutputRule()
+        {
+            return TB_Mode.IsChecked == true
+                ? PathRule.SaveFile(".png")
+                : PathRule.SaveFolder();
         }
 
         void LoadFont()
@@ -98,7 +115,7 @@ namespace PopStudio.Avalonia.Pages
             button3.Content = MAUIStr.Obj.Share_Choose;
             button_run.Content = MAUIStr.Obj.Share_Run;
             label_statue.Text = MAUIStr.Obj.Share_RunStatue;
-            text5.Text = MAUIStr.Obj.Share_Waiting;
+            FinishStatus.Set(text5, MAUIStr.Obj.Share_Waiting);
         }
 
         private async void Button1_Click(object sender, RoutedEventArgs e)
@@ -108,12 +125,11 @@ namespace PopStudio.Avalonia.Pages
                 string val;
                 if (TB_Mode.IsChecked == true)
                 {
-                    val = await new OpenFolderDialog().ShowAsync(MainWindow.Singleten);
+                    val = await StorageDialog.OpenFolderAsync();
                 }
                 else
                 {
-                    val = (await new OpenFileDialog { AllowMultiple = false }.ShowAsync(MainWindow.Singleten))?[0];
-
+                    val = await StorageDialog.OpenFileAsync(".png");
                 }
                 if (!string.IsNullOrEmpty(val)) textbox1.Text = val;
             }
@@ -129,11 +145,11 @@ namespace PopStudio.Avalonia.Pages
                 string val;
                 if (TB_Mode.IsChecked == true)
                 {
-                    val = await new SaveFileDialog().ShowAsync(MainWindow.Singleten);
+                    val = await StorageDialog.SaveFileAsync(".png");
                 }
                 else
                 {
-                    val = await new OpenFolderDialog().ShowAsync(MainWindow.Singleten);
+                    val = await StorageDialog.OpenFolderAsync();
                 }
                 if (!string.IsNullOrEmpty(val)) textbox2.Text = val;
             }
@@ -146,7 +162,7 @@ namespace PopStudio.Avalonia.Pages
         {
             try
             {
-                string val = (await new OpenFileDialog { AllowMultiple = false }.ShowAsync(MainWindow.Singleten))?[0];
+                string val = await StorageDialog.OpenFileAsync(".xml", ".json", ".txt");
                 if (!string.IsNullOrEmpty(val)) textbox3.Text = val;
             }
             catch (Exception)
@@ -158,7 +174,7 @@ namespace PopStudio.Avalonia.Pages
         {
             Button b = (Button)sender;
             b.IsEnabled = false;
-            text5.Text = MAUIStr.Obj.Share_Running;
+            FinishStatus.Set(text5, MAUIStr.Obj.Share_Running);
             bool mode = TB_Mode.IsChecked == true;
             string inFile = textbox1.Text;
             string outFile = textbox2.Text;
@@ -207,11 +223,11 @@ namespace PopStudio.Avalonia.Pages
                 {
                     if (err == null)
                     {
-                        text5.Text = string.Format(MAUIStr.Obj.Share_Finish, time.ToString("F3"));
+                        FinishStatus.ShowFinish(text5, time.ToString("F3"), outFile);
                     }
                     else
                     {
-                        text5.Text = string.Format(MAUIStr.Obj.Share_Wrong, err);
+                        FinishStatus.ShowWrong(text5, err);
                     }
                     b.IsEnabled = true;
                 });
@@ -249,6 +265,8 @@ namespace PopStudio.Avalonia.Pages
                     splice_size.IsVisible = false;
                 }
                 (textbox1.Text, textbox2.Text) = (textbox2.Text, textbox1.Text);
+                PathHint.Refresh(textbox1);
+                PathHint.Refresh(textbox2);
             }
         }
     }
