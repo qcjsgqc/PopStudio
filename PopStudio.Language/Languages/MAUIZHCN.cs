@@ -55,7 +55,7 @@
         public string Console_App_CommandIndex_DecodeImage_Txz => "解码txz(Android,iOS)图像";
         public string Console_App_CommandIndex_DecodeImage_TexTV => "解码tex(TV)图像";
         public string Console_App_CommandIndex_DecodeImage_PtxXbox360 => "解码ptx(Xbox360)图像";
-        public string Console_App_CommandIndex_DecodeImage_PtxPS3 => "解码ptx(PS3)图像";
+        public string Console_App_CommandIndex_DecodeImage_PtxPS3 => "解码dds / ptx(PS3)图像";
         public string Console_App_CommandIndex_DecodeImage_PtxPSV => "解码ptx(PSV)图像";
         public string Console_App_CommandIndex_DecodeImage_Xnb => "解码xnb(Windows Phone)图像";
         public string Console_App_CommandIndex_EncodeImage_PtxRsb => "编码PTX(rsb)图像";
@@ -64,7 +64,7 @@
         public string Console_App_CommandIndex_EncodeImage_Txz => "编码txz(Android,iOS)图像";
         public string Console_App_CommandIndex_EncodeImage_TexTV => "编码tex(TV)图像";
         public string Console_App_CommandIndex_EncodeImage_PtxXbox360 => "编码ptx(Xbox360)图像";
-        public string Console_App_CommandIndex_EncodeImage_PtxPS3 => "编码ptx(PS3)图像";
+        public string Console_App_CommandIndex_EncodeImage_PtxPS3 => "编码dds / ptx(PS3)图像";
         public string Console_App_CommandIndex_EncodeImage_PtxPSV => "编码ptx(PSV)图像";
         public string Console_App_CommandIndex_EncodeImage_Xnb => "编码xnb(Windows Phone)图像";
         public string Console_App_CommandIndex_Reanim_ToPCCompiled => "将reanim动画转为PC_Compiled格式";
@@ -124,6 +124,19 @@
         public string Console_App_Atlas_Height_Ask => "请输入图集图像高度";
         public string Console_App_Texture_Format_Ask => "请输入图像格式";
         public string Console_App_Texture_Format_Ask_Formater => "输入{0}以{1}格式编码";
+        public string Console_App_CommandIndex_ImageConvert_TextureToBitmap => "批量把纹理图像转为位图";
+        public string Console_App_CommandIndex_ImageConvert_BitmapToTexture => "批量把位图转为纹理图像";
+        public string Console_App_CommandIndex_ImageConvert_BitmapToBitmap => "批量把位图转为位图";
+        public string Console_App_ImageConvert_Container_Ask => "请输入纹理容器的序号";
+        public string Console_App_ImageConvert_BitmapFormat_Ask => "请输入位图格式的序号";
+        public string Console_App_ImageConvert_Quality_Ask => "请输入JPG质量（1-100）";
+        public string Console_App_ImageConvert_MaxEdge_Ask => "请输入最大边长（留空则保持原尺寸）";
+        public string Console_App_ImageConvert_OutDir_Ask => "请输入输出文件夹路径（留空则使用默认值）";
+        public string Console_App_ImageConvert_Recursive_Ask => "是否转换子文件夹里的文件";
+        public string Console_App_ImageConvert_Overwrite_Ask => "是否覆盖已存在的文件";
+        public string Console_App_ImageConvert_OutDir => "输出文件夹为{0}";
+        public string Console_App_ImageConvert_Result => "转换完成，用时{0}秒：共{1}个，成功{2}个，跳过{3}个，失败{4}个";
+        public string Console_App_ImageConvert_Failure => "失败：{0} -> {1} : {2}";
         public string Console_NoCommand => "没有指令{0}！";
 
         //Article
@@ -248,6 +261,32 @@
         public string Texture_Choose6_Batch => "请选择编码模式";
         public string Texture_Choose7_Batch => "请选择编码格式";
 
+        //Image
+        public string Image_Title => "PNG/JPG互转";
+        public string Image_Introduction => "批量在 PNG / JPG / BMP 之间互转，可设置 JPG 质量与等比缩放。纹理容器与位图之间的批量转换请使用纹理页或 Lua 脚本。";
+        public string Image_DropConvert_Ask => "将{0}个文件转换为{1}并保存到原文件所在目录？";
+        public string Image_DropConvert_OK => "转换";
+        public string Image_Input => "待转换的文件夹或文件路径";
+        public string Image_InputFile => "选择文件";
+        public string Image_InputFolder => "选择文件夹";
+        public string Image_InputCount => "已选择{0}个文件";
+        public string Image_BitmapFormat => "输出格式";
+        public string Image_JpegQuality => "JPEG质量(1-100)";
+        public string Image_MaxEdge => "最大边长(0为不缩放)";
+        public string Image_Recursive => "包含子文件夹";
+        public string Image_OutputDir => "输出文件夹路径";
+        public string Image_Layout => "输出目录结构";
+        public string Image_Layout0 => "保留原目录结构";
+        public string Image_Layout1 => "全部平铺";
+        public string Image_Overwrite => "覆盖已存在文件";
+        public string Image_Cancel => "取消";
+        public string Image_Cancelled => "已取消";
+        public string Image_Running => "正在转换 {0}/{1}...";
+        public string Image_Result => "转换完成，用时{0}秒：成功{1}个，跳过{2}个，失败{3}个";
+        public string Image_Failures => "失败清单";
+        public string Image_NeedInput => "请选择待转换的文件或文件夹";
+        public string Image_InvalidParams => "转换参数不合法";
+
         //Pam
         public string Pam_Title => "Pam转码";
         public string Pam_Introduction => "通过Pam转码功能，实现Pam动画文件和json文件的互相转换操作，来修改游戏动画！";
@@ -309,6 +348,8 @@
         public string Reanim_Choose2_Batch => "请填写转换生成文件夹存放路径";
         public string Reanim_InFormat => "请选择被转换的文件格式";
         public string Reanim_OutFormat => "请选择转换生成文件格式";
+        public string Reanim_PredictTweens => "预测补间（实验性）";
+        public string Reanim_PredictTweensHint => "合并静止帧并拟合线性补间，减少关键帧以方便编辑。复杂变化保留逐帧；关闭时保持逐帧导出。";
 
         //Particles
         public string Particles_Title => "Particles转码";
@@ -365,13 +406,13 @@
         public string HomePage_Author_String => "作者：";
         public string HomePage_Author => "萌新迎风听雨";
         public string HomePage_Thanks_String => "特别感谢：";
-        public string HomePage_Thanks => "Bomb 补补23456 2508 和风唐舞 孤独泪痕 63enjoy AS魇梦蚀 伊特 某个萌新 天天 Indestructible_Ch 僵学者 An-Haze";
+        public string HomePage_Thanks => "Bomb 补补23456 2508 和风唐舞 孤独泪痕 63enjoy AS魇梦蚀 伊特 某个萌新 天天 Indestructible_Ch 僵学者 An-Haze 惋兮";
         public string HomePage_QQGroup_String => "交流QQ群：";
         public string HomePage_QQGroup => "1017246977";
         public string HomePage_Course_String => "教学视频：";
         public string HomePage_Course => "https://space.bilibili.com/411256864";
         public string HomePage_AppNewNotice_String => "更新公告：";
-        public string HomePage_AppNewNotice => "1.修复dz文件无法解包的问题；\n2.修复粒子特效转为xml格式时Emitter格式错误的问题；\n3.支持深色模式；\n4.更换广告。";
+        public string HomePage_AppNewNotice => "修复粒子轨迹序列化错误，修复reanim转xfl多图图层异常的问题，支持xfl转reanim";
         //Share
         public string Share_FileNotFound => "文件{0}不存在！";
         public string Share_FolderNotFound => "文件夹{0}不存在！";
@@ -380,6 +421,7 @@
         public string Share_Wrong => "执行异常：{0}";
         public string Share_ChooseMode => "请选择运行模式";
         public string Share_Choose => "选择";
+        public string Share_DropPathHint => "输入路径，或将文件/文件夹拖到这里";
         public string Share_Run => "运行";
         public string Share_RunStatue => "执行状态：";
         public string Share_Waiting => "等待中";

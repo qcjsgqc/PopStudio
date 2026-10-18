@@ -4,6 +4,7 @@ In English:
 A project to convert many kinds of files used in PopCap Games.  
 By using C# and .Net 6/.Net 7, this project can easily be used in Linux, MacOS, Windows and Android.  
 Both English and Chinese are supported.  
+In the Avalonia desktop app, drop a file or folder onto any path field to fill in its local path. If multiple items are dropped, the first one is used. Typing paths and using the Select button are also supported.
 Compile PopStudio.ConsoleProject to use PopStudio in Windows, Linux and MacOS with console.  
 Compile PopStudio.MAUI to use PopStudio in Android with GUI.  
 Compile PopStudio.WPF to use PopStudio in Windows with GUI.  
@@ -16,12 +17,20 @@ unpack and pack pak(including Windows, MacOS, PS3, PSV and Xbox360)
 unpack and pack arcv(including Nds)  
 cut and create atlas  
 decode and encode ptx(including Android, iOS, PS3, PS4, PSV and Xbox360)  
+decode and encode DDS with DXT5, ATC RGB (`ATC `), explicit alpha (`ATCA`) and interpolated alpha (`ATCI`). Select **dds / ptx(PS3)** in the texture converter; for ATCA encoding select **ATC_RGBA4 (ATCA)**. DDS decoding reads the largest mip level; encoding writes a single level. Cubemaps, volumes, DX10 headers and other DDS compression formats are not supported. ATC encoding is lossy.
+
+Lua/API texture format `6` accepts DDS and PS3 PTX. Encoding subformats are `0` = DXT5 (default), `1` = ATC RGB, `2` = ATCA, `3` = ATCI; e.g. `rainy.decodeimage("input.dds", "output.png", 6)` and `rainy.encodeimage("input.png", "output.dds", 6, 2)`. Run texture regression tests with `dotnet run --project Tests/PopStudio.Texture.Tests`; optional arguments are a sample DDS path and an output directory.
+
 decode and encode cdat(including Android and iOS)  
 decode and encode tex(including Android and iOS)  
 decode and encode txz(including Android and iOS)  
 decode and encode xnb(including WindowsPhone)  
+batch convert images between PNG/JPG/BMP, with JPEG quality, proportional downscaling and a failure list; drag images onto the page to convert them in place; bitmap↔texture container conversion is available as `rainy.decodeimages` / `rainy.encodeimages` / `rainy.convertbitmaps` and as console commands `340` / `341` / `342`  
 decode and encode reanim.compiled(including Windows, MacOS, Android, iOS, WindowsPhone, PS3, PSV and Xbox360)  
 convert reanim formats to and from unpacked XFL projects and modern ZIP-based FLA files
+
+When exporting XFL/FLA, the optional **Predict tweens (experimental)** checkbox merges holds and fits linear classic tweens. It is off by default and also applies to batch conversion. Image/visibility changes and action-marker boundaries retain keys. Changing skew and ambiguous transforms keep explicit frames; original easing curves are not recovered. Fitting tolerances per sample are approximately 0.05 pixels per position axis, 0.05 degrees per angle, 0.0005 per scale, and 0.005 alpha. These are property tolerances, not a bound on the displacement of every pixel in a large sprite. The console asks for this option when exporting XFL/FLA (`T` enables it). Lua accepts an optional final boolean: `rainy.reanim(input, output, inputFormat, outputFormat, true)` or `rainy.parsereanim(input, output, outputFormat, true)`.
+
 decode and encode xml.compiled(including Windows, MacOS, Android, iOS, WindowsPhone, PS3, PSV and Xbox360)  
 decode and encode trail.compiled(including Windows, MacOS, Android, iOS, WindowsPhone, PS3, PSV and Xbox360)  
 decode and encode pam(including version 1-6)  
@@ -29,15 +38,12 @@ decode and encode RTON(including simple RTON and encrypted RTON but need your ke
 decompress and compress files  
 use lua to run program  
 
+Xbox360 PAK supports XMem LZX TD compression and decompression. Unpacking records `XmemCompress` in `popstudioinfo/packinfo.xml`; packing uses that setting automatically. For new Xbox360 archives, set `PCVersion=False`, `ZlibCompress=False`, `XmemCompress=True` and `Xbox360PtxAlign=True`.
+
 ___
 If you know other file sturctures such as luc and pax, you can communicate with the author.  
 ___
 If you want to communicate with the author, you can download QQ(a chatting software) in Google Play, App Store or Microsoft Store, and then register a QQ account number and enter our QQ group numbered 1017246977(The answer is "Github").
-___
-Contributors:
-
-- 惋兮
-
 ___
 This project has used:  
 [DotNetZip](https://github.com/eropple/dotnetzip) to decompress and compress BZip2 files.  
@@ -54,6 +60,7 @@ In Chinese:
 一个用于转换很多宝开游戏使用的文件的项目。  
 通过使用C#和.Net 6/.Net 7，这个项目可以很轻松地在Linux，MacOS，Windows和Android系统上使用。  
 英文和中文都支持。  
+Avalonia 桌面版支持将文件或文件夹直接拖入路径输入框，自动填入本地路径；同时拖入多个项目时使用第一个。也可以继续手动输入路径或点击“选择”按钮。
 编译PopStudio.ConsoleProject以在Windows，Linux和MacOS使用控制台版本。  
 编译PopStudio.MAUI以在Android使用GUI版本。  
 编译PopStudio.WPF以在Windows使用GUI版本。  
@@ -66,12 +73,20 @@ In Chinese:
 解包打包arcv（包括Nds）  
 图集裁剪与拼接  
 解码编码ptx（包括Android，iOS，PS3，PS4，PSV和Xbox360）  
+解码编码 DDS：支持 DXT5、ATC RGB（`ATC `）、显式透明度（`ATCA`）和插值透明度（`ATCI`）。在纹理转换中选择 **dds / ptx(PS3)**，编码 ATCA 时选择 **ATC_RGBA4 (ATCA)**。解码只读取最大 mip 层，编码输出单层；不支持立方体、体积纹理、DX10 头及其他 DDS 压缩格式。ATC 编码是有损压缩。
+
+Lua/API 的图像格式编号 `6` 同时支持 DDS 和 PS3 PTX，编码子格式为 `0` = DXT5（默认）、`1` = ATC RGB、`2` = ATCA、`3` = ATCI。例如：`rainy.decodeimage("input.dds", "output.png", 6)`、`rainy.encodeimage("input.png", "output.dds", 6, 2)`。纹理回归测试：`dotnet run --project Tests/PopStudio.Texture.Tests`，可追加样例 DDS 路径和输出目录。
+
 解码编码cdat（包括Android，iOS）  
 解码编码tex（包括Android，iOS）  
 解码编码txz（包括Android，iOS）  
 解码编码xnb（包括WindowsPhone）  
+批量在PNG/JPG/BMP之间互转，支持JPG质量、等比缩小与失败清单；把图片拖到页面上即可就地转换；位图与纹理容器之间的转换通过 `rainy.decodeimages` / `rainy.encodeimages` / `rainy.convertbitmaps` 以及控制台命令 `340` / `341` / `342` 完成  
 解码编码reanim.compiled(包括Windows，MacOS，Android，iOS，WindowsPhone，PS3，PSV和Xbox360)  
 在未打包的XFL工程、现代ZIP型FLA文件与任意已支持的reanim格式之间转换
+
+导出 XFL/FLA 时可勾选“**预测补间（实验性）**”，合并静止帧并拟合线性传统补间，默认关闭，也适用于批量转换。换图、显隐变化和动作标记边界保留关键帧；变化中的倾斜及不确定的变换保留逐帧，不恢复原始缓动曲线。每帧拟合容差约为位置每轴 0.05 像素、角度 0.05 度、缩放比例 0.0005、透明度 0.005；这些是属性误差，不代表大尺寸图片上所有像素的位移上限。控制台导出时也会询问此选项（输入 `T` 启用）。Lua 的 `rainy.reanim` 和 `rainy.parsereanim` 可在原有参数后追加 `true` 启用。
+
 解码编码xml.compiled(包括Windows，MacOS，Android，iOS，WindowsPhone，PS3，PSV和Xbox360)  
 解码编码trail.compiled(包括Windows，MacOS，Android，iOS，WindowsPhone，PS3，PSV和Xbox360)  
 解码编码pam（包括版本号1-6的）  
@@ -79,15 +94,12 @@ In Chinese:
 压缩解压文件  
 使用lua脚本调用程序  
 
+支持 Xbox360 PAK 的 XMem LZX TD 压缩与解压。解包会在 `popstudioinfo/packinfo.xml` 中保存 `XmemCompress`，重打包时自动沿用。新建 Xbox360 包时设置 `PCVersion=False`、`ZlibCompress=False`、`XmemCompress=True` 和 `Xbox360PtxAlign=True`。
+
 ___
 如果你知道其他文件结构，例如luc和pax，你可以和作者交流。  
 ___
 如果你想和作者交流，你可以使用QQ，加入群聊1017246977（备注“GitHub”）。  
-___
-贡献者：
-
-- 惋兮
-
 ___
 这个项目使用了：  
 [DotNetZip](https://github.com/eropple/dotnetzip)用于解压和压缩BZip2文件。  

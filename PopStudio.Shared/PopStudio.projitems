@@ -9,6 +9,7 @@
     <Import_RootNamespace>PopStudio</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\OtherProject\XMemCompressionDotNet\*.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BombLib\PopAnim\PamXfl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BombLib\Reanim\Godot.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Atlas\AncientXml.cs" />
@@ -26,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Package\Dz\Dz.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Platform\YFAPI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Platform\YFBitmap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Platform\YFBitmapWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Plugin\BitStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Plugin\IDisposablePool.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Plugin\PVRTCDecode.cs" />
@@ -75,6 +77,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Image\Tex\TexHead.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Image\Txz\Txz.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Image\Txz\TxzHead.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Image\Convert\ImageConvertCatalog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Image\Convert\ImageBatchConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\OtherProject\DotNetZip\BZip2\BitWriter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\OtherProject\DotNetZip\BZip2\BZip2Compressor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\OtherProject\DotNetZip\BZip2\BZip2InputStream.cs" />
@@ -119,6 +123,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\PopAnim\PamJsonContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\FlashFla.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\FlashXfl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\FlashTweenPredictor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\FlashXflDecoder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\GameConsole.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Reanim\RawXml.cs" />
@@ -141,6 +146,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\ARGB8888.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\ARGB8888_Padding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\ATC_RGB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\ATC.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\DXT1_RGB.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\ATC_RGBA4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)YFTYLib\Texture\DXT3_RGBA.cs" />

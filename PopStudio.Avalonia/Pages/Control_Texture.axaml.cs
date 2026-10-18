@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using PopStudio.Language.Languages;
+using PopStudio.Image.Convert;
 using System.Diagnostics;
 using PopStudio.Platform;
 
@@ -14,6 +15,7 @@ namespace PopStudio.Avalonia.Pages
         {
             InitializeComponent();
             LoadControl();
+            FilePathDrop.Enable(textbox1, textbox2);
             LoadFont();
             foreach (var item in new List<string>
                      {
@@ -23,7 +25,7 @@ namespace PopStudio.Avalonia.Pages
                          "txz(Android,iOS)",
                          "tex(TV)",
                          "ptx(Xbox360)",
-                         "ptx(PS3)",
+                         "dds / ptx(PS3)",
                          "ptx(PSV)",
                          "xnb(Windows Phone)"
                      })
@@ -105,6 +107,7 @@ namespace PopStudio.Avalonia.Pages
 
         void LoadFont()
         {
+            textbox1.Watermark = textbox2.Watermark = MAUIStr.Obj.Share_DropPathHint;
             label_batch1.Text = MAUIStr.Obj.Share_SingleMode;
             label_batch2.Text = MAUIStr.Obj.Share_BatchMode;
             label_introduction.Text = MAUIStr.Obj.Texture_Introduction;
@@ -235,7 +238,7 @@ namespace PopStudio.Avalonia.Pages
                         3 => ".txz",
                         4 => ".tex",
                         5 => ".ptx",
-                        6 => ".ptx",
+                        6 => fmode == 0 ? ".ptx" : ".dds",
                         7 => ".ptx",
                         8 => ".xnb",
                         _ => null
@@ -262,11 +265,16 @@ namespace PopStudio.Avalonia.Pages
                             7 => ".ptx",
                             8 => ".xnb",
                             _ => null
-                        }) : ".png";
-                        int rightFormatLength = rightFormat.Length;
+                        }) : null;
+                        int rightFormatLength = rightFormat == null ? 0 : rightFormat.Length;
                         foreach (string mfile in files)
                         {
-                            if (mfile.Length < rightFormatLength || mfile[^rightFormatLength..].ToLower() != rightFormat)
+                            bool isDds = !mode && cmode == 6 && Path.GetExtension(mfile).Equals(".dds", StringComparison.OrdinalIgnoreCase);
+                            // 编码模式的输入是位图，PNG/JPG/BMP 底层都能读；只认 .png 会把一批 JPG 静默跳过
+                            bool matched = mode
+                                ? ImageConvertCatalog.IsBitmapInput(mfile)
+                                : (rightFormatLength > 0 && mfile.Length >= rightFormatLength && mfile[^rightFormatLength..].ToLower() == rightFormat);
+                            if (!isDds && !matched)
                             {
                                 continue;
                             }
@@ -398,6 +406,9 @@ namespace PopStudio.Avalonia.Pages
                     break;
                 case 6:
                     FMode_Items.Add("DXT5_RGBA");
+                    FMode_Items.Add("ATC_RGB (ATC)");
+                    FMode_Items.Add("ATC_RGBA4 (ATCA)");
+                    FMode_Items.Add("ATC_RGBA_Interpolated (ATCI)");
                     break;
                 case 7:
                     FMode_Items.Add("DXT5_RGBA_Morton");

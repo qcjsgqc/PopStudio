@@ -55,7 +55,7 @@
         public string Console_App_CommandIndex_DecodeImage_Txz => "Decode txz(Android,iOS) Image";
         public string Console_App_CommandIndex_DecodeImage_TexTV => "Decode tex(TV) Image";
         public string Console_App_CommandIndex_DecodeImage_PtxXbox360 => "Decode ptx(Xbox360) Image";
-        public string Console_App_CommandIndex_DecodeImage_PtxPS3 => "Decode ptx(PS3) Image";
+        public string Console_App_CommandIndex_DecodeImage_PtxPS3 => "Decode dds / ptx(PS3) Image";
         public string Console_App_CommandIndex_DecodeImage_PtxPSV => "Decode ptx(PSV) Image";
         public string Console_App_CommandIndex_DecodeImage_Xnb => "Decode xnb(Windows Phone) Image";
         public string Console_App_CommandIndex_EncodeImage_PtxRsb => "Encode PTX(rsb) Image";
@@ -64,7 +64,7 @@
         public string Console_App_CommandIndex_EncodeImage_Txz => "Encode txz(Android,iOS) Image";
         public string Console_App_CommandIndex_EncodeImage_TexTV => "Encode tex(TV) Image";
         public string Console_App_CommandIndex_EncodeImage_PtxXbox360 => "Encode ptx(Xbox360) Image";
-        public string Console_App_CommandIndex_EncodeImage_PtxPS3 => "Encode ptx(PS3) Image";
+        public string Console_App_CommandIndex_EncodeImage_PtxPS3 => "Encode dds / ptx(PS3) Image";
         public string Console_App_CommandIndex_EncodeImage_PtxPSV => "Encode ptx(PSV) Image";
         public string Console_App_CommandIndex_EncodeImage_Xnb => "Encode xnb(Windows Phone) Image";
         public string Console_App_CommandIndex_Reanim_ToPCCompiled => "Convert reanim to PC_Compiled format";
@@ -124,6 +124,19 @@
         public string Console_App_Atlas_Height_Ask => "Please enter Atlas image height";
         public string Console_App_Texture_Format_Ask => "Please enter image format";
         public string Console_App_Texture_Format_Ask_Formater => "Enter {0} to use {1} format to encode";
+        public string Console_App_CommandIndex_ImageConvert_TextureToBitmap => "Batch convert textures to bitmaps";
+        public string Console_App_CommandIndex_ImageConvert_BitmapToTexture => "Batch convert bitmaps to textures";
+        public string Console_App_CommandIndex_ImageConvert_BitmapToBitmap => "Batch convert bitmaps to bitmaps";
+        public string Console_App_ImageConvert_Container_Ask => "Please enter the index of the texture container";
+        public string Console_App_ImageConvert_BitmapFormat_Ask => "Please enter the index of the bitmap format";
+        public string Console_App_ImageConvert_Quality_Ask => "Please enter the JPEG quality(1-100)";
+        public string Console_App_ImageConvert_MaxEdge_Ask => "Please enter the maximum edge length(Leave empty to keep the original size)";
+        public string Console_App_ImageConvert_OutDir_Ask => "Please enter the output folder path(Leave empty to use the default)";
+        public string Console_App_ImageConvert_Recursive_Ask => "Whether to convert the files in subfolders";
+        public string Console_App_ImageConvert_Overwrite_Ask => "Whether to overwrite the existing files";
+        public string Console_App_ImageConvert_OutDir => "The output folder is {0}";
+        public string Console_App_ImageConvert_Result => "Convert complete with {0} seconds: {1} found, {2} succeeded, {3} skipped, {4} failed";
+        public string Console_App_ImageConvert_Failure => "Failed: {0} -> {1} : {2}";
         public string Console_NoCommand => "No command {0}!";
 
         //Article
@@ -248,6 +261,32 @@
         public string Texture_Choose6_Batch => "Encoding Mode";
         public string Texture_Choose7_Batch => "Encoding Format";
 
+        //Image
+        public string Image_Title => "PNG/JPG Converter";
+        public string Image_Introduction => "Batch convert between PNG / JPG / BMP, with JPEG quality and proportional resize. To convert between textures and bitmaps, use the texture page or Lua scripts.";
+        public string Image_DropConvert_Ask => "Convert {0} file(s) to {1} and save them next to the originals?";
+        public string Image_DropConvert_OK => "Convert";
+        public string Image_Input => "The path of the folder or files to convert";
+        public string Image_InputFile => "Choose file(s)";
+        public string Image_InputFolder => "Choose folder";
+        public string Image_InputCount => "{0} file(s) selected";
+        public string Image_BitmapFormat => "Output format";
+        public string Image_JpegQuality => "JPEG quality(1-100)";
+        public string Image_MaxEdge => "Max edge(0 to disable resize)";
+        public string Image_Recursive => "Include subfolders";
+        public string Image_OutputDir => "The path of the output folder";
+        public string Image_Layout => "Output layout";
+        public string Image_Layout0 => "Keep the folder structure";
+        public string Image_Layout1 => "Put all files in one folder";
+        public string Image_Overwrite => "Overwrite the existing files";
+        public string Image_Cancel => "Cancel";
+        public string Image_Cancelled => "Cancelled";
+        public string Image_Running => "Converting {0}/{1}...";
+        public string Image_Result => "Convert complete with {0} seconds: {1} succeeded, {2} skipped, {3} failed";
+        public string Image_Failures => "Failure list";
+        public string Image_NeedInput => "Please choose the file or folder to convert";
+        public string Image_InvalidParams => "The converting parameters are invalid";
+
         //Pam
         public string Pam_Title => "Pam";
         public string Pam_Introduction => "Through PAM transcoding, you can convert PAM animation file and json file to modify game animation! ";
@@ -309,6 +348,8 @@
         public string Reanim_Choose2_Batch => "Path of out folder";
         public string Reanim_InFormat => "Format of in file";
         public string Reanim_OutFormat => "Format of out file";
+        public string Reanim_PredictTweens => "Predict tweens (experimental)";
+        public string Reanim_PredictTweensHint => "Merge holds and fit linear tweens for easier editing. Complex changes keep their keyframes. Turn off to export every frame.";
 
         //Particles
         public string Particles_Title => "Particles";
@@ -365,13 +406,13 @@
         public string HomePage_Author_String => "Author:";
         public string HomePage_Author => "YingFengTingYu";
         public string HomePage_Thanks_String => "Thanks:";
-        public string HomePage_Thanks => "Bomb, 补补23456, 2508, Japonisme Toumai, 孤独泪痕, 63enjoy, AS魇梦蚀, 伊特, 某个萌新, 天天, Indestructible_Ch, 僵学者, An-Haze";
+        public string HomePage_Thanks => "Bomb, 补补23456, 2508, Japonisme Toumai, 孤独泪痕, 63enjoy, AS魇梦蚀, 伊特, 某个萌新, 天天, Indestructible_Ch, 僵学者, An-Haze, 惋兮";
         public string HomePage_QQGroup_String => "QQ group:";
         public string HomePage_QQGroup => "1017246977";
         public string HomePage_Course_String => "Course Video:";
         public string HomePage_Course => "https://space.bilibili.com/411256864";
         public string HomePage_AppNewNotice_String => "Update announcement:";
-        public string HomePage_AppNewNotice => "1. Fix the issue with unpacking dz files;\n2. Fix incorrect Emitter format when converting particles to XML;\n3. Add support for dark mode;\n4. Update advertisements.";
+        public string HomePage_AppNewNotice => "Fix particle and trail serialization errors, fix issues with multi-image layers when converting reanim to XFL, and add support for converting XFL to reanim.";
         //Share
         public string Share_FileNotFound => "File {0} does not exist! ";
         public string Share_FolderNotFound => "Folder {0} does not exist! ";
@@ -380,6 +421,7 @@
         public string Share_Wrong => "Executing error: {0}";
         public string Share_ChooseMode => "Select Operation Mode";
         public string Share_Choose => "Select";
+        public string Share_DropPathHint => "Enter a path or drop a file/folder here";
         public string Share_Run => "Execution";
         public string Share_RunStatue => "Execution status:";
         public string Share_Waiting => "Waiting";

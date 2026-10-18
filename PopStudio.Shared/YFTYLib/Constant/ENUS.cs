@@ -14,9 +14,12 @@
 
         public string FolderNotFound => "Folder {0} is not exist";
 
-        public string XmemCompressInvalid => "Xmem compress is invalid";
+        public string XmemCompressInvalid => "The current PAK implementation does not support combining Xmem compression with PCVersion or ZlibCompress";
 
         public string UnknownFormat => "Unknown format";
+
+        public string TextureSizeLimit => "The image size {0}x{1} is out of range for this texture container";
+        public string ImageTooLarge => "The image is too large to be saved as BMP";
 
         public string TypeMisMatch => "The type is mismatched";
 
